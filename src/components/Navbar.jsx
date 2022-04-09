@@ -9,14 +9,17 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
+// import {useNavigate} from "react-router-dom";
+import {  useState } from "react";
 
 const Navbar = () => {
-  const [auth, setAuth] = React.useState(true);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  // const navigate = useNavigate();
+  const [auth, setAuth] = useState(true);
+  const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
-  };
+  // const handleChange = (event) => {
+  //   setAuth(event.target.checked);
+  // };
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -29,7 +32,7 @@ const Navbar = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       {/* <FormGroup> */}
-        {/* <FormControlLabel
+      {/* <FormControlLabel
           control={
             <Switch
               checked={auth}
@@ -52,7 +55,8 @@ const Navbar = () => {
             {/* <MenuIcon /> */}
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-           
+            <span>____ AKKOCH IT____</span>
+            <span color="primary">BLOG</span>
           </Typography>
           {auth && (
             <div>
@@ -81,9 +85,24 @@ const Navbar = () => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem to="/profile" onClick={handleClose}>Profile</MenuItem>
-                <MenuItem to="/newblog" onClick={handleClose}>New Blog</MenuItem>
-                <MenuItem  to="/signup" onClick={handleClose}>Logout</MenuItem>
+                <MenuItem
+                  // component={<Link to="/profile" />}
+                  // onClick={() => navigate("/profile")}
+                >
+                  Profile
+                </MenuItem>
+                <MenuItem
+                  // component={<Link to="/newblog" />}
+                  // onClick={() => navigate("/newblog")}
+                >
+                  New Blog
+                </MenuItem>
+                <MenuItem
+                  // component={<Link to="/login" />}
+                  // onClick={() => navigate("/login")}
+                >
+                  Logout
+                </MenuItem>
               </Menu>
             </div>
           )}
@@ -91,7 +110,6 @@ const Navbar = () => {
       </AppBar>
     </Box>
   );
-}
-
+};
 
 export default Navbar;

@@ -1,103 +1,49 @@
-import { Grid, TextField, Button, Link } from "@mui/material";
-import { deepPurple } from "@mui/material/colors";
-import { Form } from "formik";
+import { Container, Box, Avatar, Typography } from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { yellow } from "@mui/material/colors";
+import { Formik } from "formik";
+import LoginForm from "../components/LoginForm";
+import { LoginValidationSchema } from "../components/LoginValidationSchema";
 
-const Login = (props) => {
-  console.log(props);
-  const { values, handleChange, handleBlur, errors, touched } = props;
+const Login = () => {
   return (
-    <Form>
-      <Grid container spacing={4}>
-        <Grid item xs={12} md={6}>
-          <TextField
-            id="firstName"
-            label="First Name"
-            name="firstName"
-            variant="outlined"
-            value={values.firstName}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            helperText={touched.firstName && errors.firstName}
-            error={touched.firstName && Boolean(errors.firstName)}
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
-            id="lastName"
-            label="Last Name"
-            name="lastName"
-            variant="outlined"
-            value={values.lastName}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            helperText={touched.lastName && errors.lastName}
-            error={touched.lastName && Boolean(errors.lastName)}
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            id="email"
-            label="email"
-            name="email"
-            variant="outlined"
-            type="email"
-            value={values.email}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            helperText={touched.email && errors.email}
-            error={touched.email && Boolean(errors.email)}
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            id="password"
-            label="password"
-            name="password"
-            variant="outlined"
-            type="password"
-            value={values.password}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            helperText={touched.password && errors.password}
-            error={touched.password && Boolean(errors.password)}
-            fullWidth
-          />
-        </Grid>
+    <Container maxWidth="sm">
+      <Box
+        sx={{
+          marginTop: "2rem",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          width: "400px",
+          border: "1px solid",
+          padding: "1rem",
+          borderRadius: "15px",
+        }}
+      >
+        <Avatar sx={{ bgcolor: yellow[500], m: 2 }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
+          Login
+        </Typography>
 
-        <Grid item xs={12}>
-          <TextField
-            id="passwordConfirm"
-            label="password confirm"
-            name="passwordConfirm"
-            variant="outlined"
-            type="password"
-            value={values.passwordConfirm}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            helperText={touched.passwordConfirm && errors.passwordConfirm}
-            error={touched.passwordConfirm && Boolean(errors.passwordConfirm)}
-            fullWidth
-          />
-        </Grid>
-
-        <Grid item xs={12}>
-          <Button
-            type="submit"
-            variant="contained"
-            fullWidth
-            sx={{ bgcolor: deepPurple[500] }}
-          >
-            Signup
-          </Button>
-        </Grid>
-      </Grid>
-      <Grid container justifyContent="flex-end" sx={{ mt: 4 }}>
-        <Link href="/signin">Sie haben bereits ein Konto?</Link>
-      </Grid>
-    </Form>
+        <Formik
+          initialValues={{
+            userName: "",
+            password: "",
+          }}
+          validationSchema={LoginValidationSchema}
+          onSubmit={(values, actions) => {
+            alert(`userName: ${values.userName}
+             password: ${values.password}
+            `);
+            actions.resetForm();
+            actions.setSubmitting(false);
+          }}
+          component={(props) => <LoginForm {...props} />}
+        ></Formik>
+      </Box>
+    </Container>
   );
 };
 

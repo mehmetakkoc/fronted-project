@@ -1,8 +1,28 @@
 import { Grid, TextField, Button, Link } from "@mui/material";
 import { deepPurple } from "@mui/material/colors";
 import { Form } from "formik";
+import { useGlobalContext } from "../context/Context";
+import { signIn, signUpWithGoogle } from "../auth/firebase";
+import { useNavigate } from "react-router-dom";
+import {  useState } from "react";
 
 const LoginForm = (props) => {
+  const [email, setEmail] = useState();
+  const [isAuth, setIsAuth] = useState(false);
+  const [password, setPassword] = useState();
+  const navigate = useNavigate();
+
+  const { currentUser } = useGlobalContext();
+
+  const handleGoogleSingIn = () => {
+    signUpWithGoogle();
+    setIsAuth(true);
+    navigate("/home");
+  };
+  const handleLogin = () => {
+    signIn(email, password);
+    currentUser ? navigate("/") : alert("Login is Failed");
+  };
   console.log(props);
   const { values, handleChange, handleBlur, errors, touched } = props;
   return (
@@ -55,8 +75,9 @@ const LoginForm = (props) => {
             variant="contained"
             fullWidth
             sx={{ bgcolor: deepPurple[500] }}
+            onClick={handleGoogleSingIn}
           >
-            Signup
+            Continue with Google
           </Button>
         </Grid>
       </Grid>

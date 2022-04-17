@@ -6,16 +6,18 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import { useGlobalContext } from "../context/Context";
 
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-// import {useNavigate} from "react-router-dom";
-import {  useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Navbar = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [auth, setAuth] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
+  const { currentUser } = useGlobalContext();
 
   // const handleChange = (event) => {
   //   setAuth(event.target.checked);
@@ -70,40 +72,55 @@ const Navbar = () => {
               >
                 <AccountCircle />
               </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem
-                  // component={<Link to="/profile" />}
-                  // onClick={() => navigate("/profile")}
+
+              {currentUser ? (
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
                 >
-                  Profile
-                </MenuItem>
-                <MenuItem
-                  // component={<Link to="/newblog" />}
-                  // onClick={() => navigate("/newblog")}
+                  {" "}
+                  <MenuItem onClick={() => navigate("/profile")}>
+                    Profile
+                  </MenuItem>
+                  <MenuItem onClick={() => navigate("/newblog")}>
+                    New Blog
+                  </MenuItem>
+                  <MenuItem onClick={() => navigate("/login")}>Logout</MenuItem>
+                </Menu>
+              ) : (
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
                 >
-                  New Blog
-                </MenuItem>
-                <MenuItem
-                  // component={<Link to="/login" />}
-                  // onClick={() => navigate("/login")}
-                >
-                  Logout
-                </MenuItem>
-              </Menu>
+                  {" "}
+                  <MenuItem onClick={() => navigate("/login")}>Login</MenuItem>
+                  <MenuItem onClick={() => navigate("/register")}>
+                    Register
+                  </MenuItem>
+                </Menu>
+              )}
             </div>
           )}
         </Toolbar>

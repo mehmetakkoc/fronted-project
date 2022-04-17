@@ -1,19 +1,12 @@
 import "./App.css";
-import Navbar from "./components/Navbar";
-import Login from "./pages/Login";
-import NewBlog from "./pages/NewBlog";
-import Profile from "./pages/Profile";
-import Register from "./pages/Register";
+import {AppProvider} from "./context/Context";
+import AppRouter from "./router/AppRouter";
 
 function App() {
   return (
-    <div className="App">
-      <Navbar/>
-      <Login />
-      <NewBlog />
-      <Profile />
-      <Register />
-    </div>
+    <AppProvider>
+      <AppRouter />
+    </AppProvider>
   );
 }
 

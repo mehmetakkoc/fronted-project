@@ -1,11 +1,15 @@
-// import React from "react";
-// import { BrowserRouter , Routes, Route } from "react-router-dom";
-// import Navbar from "../components/Navbar";
-// import NewBlog from "../pages/NewBlog";
-// import Profile from "../pages/Profile";
-// import Login from "../pages/Login";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "../components/Navbar";
+import NewBlog from "../pages/NewBlog";
+import Profile from "../pages/Profile";
+import Login from "../pages/Login";
 // import PrivateRouter from "./PrivateRouter";
-// import Register from "../pages/Register";
+import Register from "../pages/Register";
+import { useGlobalContext } from "../context/Context";
+import Home from "../pages/Home";
+
+// import LoginForm from "../components/LoginForm";
 
 // const AppRouter = () => {
 //   return (
@@ -35,3 +39,36 @@
 // };
 
 // export default AppRouter;
+
+const AppRouter = () => {
+  const { currentUser } = useGlobalContext();
+  console.log(currentUser);
+  return (
+    <Router>
+      <Navbar />
+      <Home />
+      <Routes>
+        <Route path="/" element={<Home />} />
+
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/newblog" element={<NewBlog />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+
+      {/* {currentUser ? (
+        <Routes>
+          <Route path="/" element={<Home />} />
+
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/newblog" element={<NewBlog />} />
+        </Routes>
+      ) : (
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      )} */}
+    </Router>
+  );
+};
+export default AppRouter;

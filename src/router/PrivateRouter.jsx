@@ -1,9 +1,11 @@
+
 // import { Navigate, Outlet } from "react-router-dom";
+// import { useGlobalContext } from "../context/Context";
 
 // const PrivateRouter = () => {
-//   const user = JSON.parse(sessionStorage.getItem("user"));
+//   const { currentUser } = useGlobalContext();
 
-//   return user ? <Outlet /> : <Navigate to="/login" />;
+//   return currentUser ? <Outlet /> : <Navigate to="/login" />;
 // };
 
 // export default PrivateRouter;

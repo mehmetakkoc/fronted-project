@@ -3,12 +3,12 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { CardActionArea, CardActions } from "@mui/material";
-import { useGlobalContext } from "../context/Context";
+import { CardActionArea } from "@mui/material";
+// import { useGlobalContext } from "../context/Context";
 
 const Home = () => {
-  const { list } = useGlobalContext();
-  console.log(list);
+  // const { list } = useGlobalContext();
+  // console.log(list);
 
   return (
     <Card
@@ -21,25 +21,25 @@ const Home = () => {
       <CardActionArea
         sx={{ display: "flex", alignItems: "center", justifyContent: "center",gap:1 }}
       >
-        {list.map((item, id) => (
+        {/* {list.map((item, id) => ( */}
           <>
             <CardMedia
-              key={item.id}
+              // key={item.id}
               component="img"
               height="140"
-              image={item.img}
+              // image={item.img}
               alt="green iguana"
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
-                {item.name}
+                {/* {item.name} */}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                {item.text}
+                {/* {item.text} */}
               </Typography>
             </CardContent>{" "}
           </>
-        ))}
+        {/* ))} */}
       </CardActionArea>
     </Card>
   );

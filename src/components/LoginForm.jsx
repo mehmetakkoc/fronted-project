@@ -1,41 +1,38 @@
-import { Grid, TextField, Button, Link } from "@mui/material";
-import { deepPurple } from "@mui/material/colors";
+import { Grid, TextField, Button } from "@mui/material";
 import { Form } from "formik";
-import { useGlobalContext } from "../context/Context";
-import { signIn, signUpWithGoogle } from "../auth/firebase";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import {  useState } from "react";
+import { createUser, signUpWithGoogle } from "../auth/firebase";
+import { AuthContext } from "../context/AuthContext";
 
 const LoginForm = (props) => {
-  const [email, setEmail] = useState();
-  const [isAuth, setIsAuth] = useState(false);
-  const [password, setPassword] = useState();
+  const { values, handleChange, handleBlur, errors, touched } = props;
   const navigate = useNavigate();
+  const currentUser = useContext(AuthContext);
 
-  const { currentUser } = useGlobalContext();
+  const handleRegister = () => {
+    createUser(values.email, values.password);
+    navigate("/login");
+    console.log(values.email, values.password);
+  };
 
   const handleGoogleSingIn = () => {
     signUpWithGoogle();
-    setIsAuth(true);
-    navigate("/home");
-  };
-  const handleLogin = () => {
-    signIn(email, password);
     currentUser ? navigate("/") : alert("Login is Failed");
+    // console.log(currentUser);
   };
-  console.log(props);
-  const { values, handleChange, handleBlur, errors, touched } = props;
+
   return (
     <Form>
       <Grid container spacing={4}>
         <Grid item xs={12}>
           <TextField
-            id="username"
-            label="username"
-            name="username"
+            id="email"
+            label="email"
+            name="email"
             variant="outlined"
-            type="username"
-            value={values.username}
+            type="email"
+            value={values.email}
             onChange={handleChange}
             onBlur={handleBlur}
             helperText={touched.email && errors.email}
@@ -63,10 +60,11 @@ const LoginForm = (props) => {
           <Button
             type="submit"
             variant="contained"
+            onClick={handleRegister}
             fullWidth
-            sx={{ bgcolor: deepPurple[500] }}
+            sx={{ bgcolor: "#056582", fontWeight: "bold", boxShadow: "" }}
           >
-            Signup
+            REGISTER
           </Button>
         </Grid>
         <Grid item xs={12}>
@@ -74,10 +72,10 @@ const LoginForm = (props) => {
             type="submit"
             variant="contained"
             fullWidth
-            sx={{ bgcolor: deepPurple[500] }}
+            sx={{ bgcolor: "#056582", fontWeight: "bold" }}
             onClick={handleGoogleSingIn}
           >
-            Continue with Google
+            CONTINUE WITH GOOGLE
           </Button>
         </Grid>
       </Grid>

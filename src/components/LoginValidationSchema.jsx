@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
 export const LoginValidationSchema = yup.object().shape({
-  userName: yup
+  email: yup
     .string()
     .required("First name is required")
     .min(2, "Too Short")

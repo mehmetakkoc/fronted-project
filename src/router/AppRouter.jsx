@@ -1,73 +1,35 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import PrivateRouter from "./PrivateRouter";
 import Navbar from "../components/Navbar";
-import NewBlog from "../pages/NewBlog";
-import Profile from "../pages/Profile";
-import Login from "../pages/Login";
-// import PrivateRouter from "./PrivateRouter";
-import Register from "../pages/Register";
-import { useGlobalContext } from "../context/Context";
+import Details from "../pages/Details";
 import Home from "../pages/Home";
-
-// import LoginForm from "../components/LoginForm";
-
-// const AppRouter = () => {
-//   return (
-//     <BrowserRouter>
-//       <Navbar />
-//       <Routes>
-//         <Route path="/register" element={<Register />} />
-
-//         {/* <Route path="/" element={<PrivateRouter />}>
-//           <Route path="" element={<Login />} />
-//         </Route> */}
-
-//         <Route path="/newblog" element={<PrivateRouter />}>
-//           <Route path="" element={<NewBlog />} />
-//         </Route>
-
-//         <Route path="/profile" element={<PrivateRouter />}>
-//           <Route path="" element={<Profile />} />
-//         </Route>
-//         <Route path="/logout" element={<PrivateRouter />}>
-//           <Route path="" element={<Login />} />
-//         </Route>
-//         {/* <Route path="/login" element={<Login />} /> */}
-//       </Routes>
-//     </BrowserRouter>
-//   );
-// };
-
-// export default AppRouter;
+import Login from "../pages/Login";
+import Register from "../pages/Register";
+import Profile from "../pages/Profile";
+import NewBlog from "../pages/NewBlog";
+import Update from "../pages/Update";
 
 const AppRouter = () => {
-  const { currentUser } = useGlobalContext();
-  console.log(currentUser);
   return (
     <Router>
       <Navbar />
-      <Home />
       <Routes>
         <Route path="/" element={<Home />} />
-
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/newblog" element={<NewBlog />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/details" element={<PrivateRouter />}>
+          <Route path="" element={<Details />} />
+        </Route>
+        <Route path="/profile" element={<PrivateRouter />}>
+          <Route path="" element={<Profile />} />
+        </Route>
+        <Route path="/newblog" element={<PrivateRouter />}>
+          <Route path="" element={<NewBlog />} />
+        </Route>
+        <Route path="/update/:id" element={<PrivateRouter />}>
+          <Route path="" element={<Update />} />
+        </Route>
       </Routes>
-
-      {/* {currentUser ? (
-        <Routes>
-          <Route path="/" element={<Home />} />
-
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/newblog" element={<NewBlog />} />
-        </Routes>
-      ) : (
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
-      )} */}
     </Router>
   );
 };

@@ -4,25 +4,18 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import { useGlobalContext } from "../context/Context";
-
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
+import HomeSharpIcon from "@mui/icons-material/HomeSharp";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { logOut } from "../auth/firebase";
 
-const Navbar = () => {
+export default function MenuAppBar() {
   const navigate = useNavigate();
-  const [auth, setAuth] = useState(true);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const { currentUser } = useGlobalContext();
-
-  // const handleChange = (event) => {
-  //   setAuth(event.target.checked);
-  // };
-
+  const { currentUser } = React.useContext(AuthContext);
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -30,103 +23,104 @@ const Navbar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleHomeClick = () => {
+    navigate("/");
+  };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      {/* <FormGroup> */}
-      {/* <FormControlLabel
-          control={
-            <Switch
-              checked={auth}
-              onChange={handleChange}
-              aria-label="login switch"
-            />
-          }
-          label={auth ? "Logout" : "Login"}
-        />
-      </FormGroup> */}
-      <AppBar position="static">
+    <Box sx={{ flexGrow: 1, m: 0 }}>
+      <AppBar position="static" sx={{ bgcolor: "#056582", color: "wheat" }}>
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 1 }}
-          >
-            {/* <MenuIcon /> */}
+          <IconButton size="large" color="inherit" onClick={handleHomeClick}>
+            <HomeSharpIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <span>____ AKKOCH IT____</span>
-            <span color="primary">BLOG</span>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1, color: "wheat", fontSize: "30px" }}
+          >
+            Web Developer Blog
           </Typography>
-          {auth && (
-            <div>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-
+          <div>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleMenu}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              {" "}
               {currentUser ? (
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                >
+                <div>
                   {" "}
-                  <MenuItem onClick={() => navigate("/profile")}>
+                  <MenuItem
+                    onClick={() => {
+                      handleClose();
+                      navigate("/profile");
+                    }}
+                  >
                     Profile
                   </MenuItem>
-                  <MenuItem onClick={() => navigate("/newblog")}>
+                  <MenuItem
+                    onClick={() => {
+                      handleClose();
+                      navigate("/newblog");
+                    }}
+                  >
                     New Blog
                   </MenuItem>
-                  <MenuItem onClick={() => navigate("/login")}>Logout</MenuItem>
-                </Menu>
+                  <MenuItem
+                    onClick={() => {
+                      logOut();
+                      handleClose();
+                      navigate("/");
+                    }}
+                  >
+                    Logout
+                  </MenuItem>{" "}
+                </div>
               ) : (
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                >
-                  {" "}
-                  <MenuItem onClick={() => navigate("/login")}>Login</MenuItem>
-                  <MenuItem onClick={() => navigate("/register")}>
+                <div>
+                  <MenuItem
+                    onClick={() => {
+                      handleClose();
+                      navigate("/login");
+                    }}
+                  >
+                    Login
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      handleClose();
+                      navigate("/register");
+                    }}
+                  >
                     Register
                   </MenuItem>
-                </Menu>
+                </div>
               )}
-            </div>
-          )}
+            </Menu>
+          </div>
         </Toolbar>
       </AppBar>
     </Box>
   );
-};
-
-export default Navbar;
+}

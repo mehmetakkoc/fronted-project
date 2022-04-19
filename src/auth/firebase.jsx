@@ -11,11 +11,28 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 
+import {
+  getDatabase,
+  ref,
+  // push,
+  set,
+  onValue,
+  query,
+  remove,
+  update,
+  child,
+  get,
+} from "firebase/database";
+import { useEffect, useState } from "react";
+// import { useNavigate } from "react-router-dom";
+import { successNote, toastLogout } from "../utils/Toast";
+
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
   projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
   storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSENGER_SENDER_ID,
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
@@ -52,10 +69,11 @@ export const signUpWithGoogle = () => {
     });
 };
 
-
 //! logout
 export const logOut = () => {
   signOut(auth);
+  toastLogout("Logout completed.");
+  
 };
 
 //! Creating New User (Register)
@@ -77,4 +95,91 @@ export const signIn = async (email, password) => {
   }
 };
 
+//! WRITE
+export const writeUserData = (userId, addCard) => {
+  const db = getDatabase(app);
 
+  set(ref(db, "blog/" + userId), addCard);
+};
+
+
+//! ******* READ DATA *******
+export const useFetch = () => {
+  const [cards, setCards] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    setIsLoading(true);
+
+    const db = getDatabase();
+    const userRef = ref(db, "cards");
+
+    onValue(query(userRef), (snapshot) => {
+      const cards = snapshot.val();
+
+      // send an array of the values in database
+      // const cardsArray = Object.values(cards);
+      const cardsArray = [];
+      for (let id in cards) {
+        cardsArray.push({ id, ...cards[id] });
+      }
+
+      setCards(cardsArray);
+      setIsLoading(false);
+    });
+  }, []);
+  return { isLoading, cards };
+};
+
+//! ******* DELETE DATA *******
+
+export const deleteCard = (id) => {
+  const db = getDatabase();
+  // const userRef = ref(db, 'contact');
+  remove(ref(db, "cards/" + id));
+  successNote("Deleted");
+};
+
+//************************************ */
+//! ******* UPDATE DATA *******
+
+export const getDataForUpdate = (id, setUpdate) => {
+  const dbRef = ref(getDatabase());
+  get(child(dbRef, `cards/${id}`))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        setUpdate(snapshot.val());
+      } else {
+        console.log("No data available");
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+export const updateCard = (id, title, image, text, email, date) => {
+  const db = getDatabase();
+  // A post entry.
+  const postData = {
+    id: id,
+    title: title,
+    image: image,
+    text: text,
+    email: email,
+    date: date,
+  };
+  // const newPostKey = push(child(ref(db), "blogs")).key;
+  const updates = {};
+  updates["cards/" + id] = postData;
+  // updates["/user-blogs/" + id + "/" + newPostKey] = postData;
+
+  return update(ref(db), updates);
+};
+
+// export const updateCard = (card) => {
+//   const db = getDatabase();
+//   const newUserKey = push(child(ref(db), "cards/")).key;
+//   const updates = {};
+//   updates["cards/" + newUserKey] = card;
+//   return update(ref(db), updates);
+// };

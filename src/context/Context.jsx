@@ -1,55 +1,25 @@
-import {
-  createContext,
-  useEffect,
-  useState,
-  useContext,
-  useReducer,
-} from "react";
-import { userStateChecker } from "../auth/firebase";
-import { reducer, initialState } from "./reducer";
+import React, { createContext, useState } from "react";
 
-const AppContext = createContext();
+export const CardContext = createContext();
 
-const AppProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+export const initialValues = {
+  id: "",
+  title: "",
+  image: "",
+  text: "",
+  email: "",
+  date: "",
+};
 
-  const updateContact = (data) => {
-    dispatch({ type: "UPDATE_CONTACT", payload: data });
-  };
-
-  const addContact = (data) => {
-    dispatch({ type: "ADD_CONTACT", payload: data });
-  };
-
-  const deleteContact = (id) => {
-    dispatch({ type: "DELETE_CONTACT", payload: id });
-  };
-
-  const [currentUser, setCurrentUser] = useState();
-
-  useEffect(() => {
-    userStateChecker(setCurrentUser);
-  }, []);
-
-  console.log(currentUser);
+const ContextProvider = ({ children }) => {
+  const [addCard, setAddCard] = useState(initialValues);
+  const [cards, setCards] = useState(addCard);
+  console.log(setAddCard);
 
   return (
-    <AppContext.Provider
-      value={{
-        ...state,
-        currentUser,
-        updateContact,
-        addContact,
-        deleteContact,
-      }}
-    >
+    <CardContext.Provider value={{ addCard, setAddCard, cards, setCards }}>
       {children}
-    </AppContext.Provider>
+    </CardContext.Provider>
   );
 };
-
-export const useGlobalContext = () => {
-  return useContext(AppContext);
-};
-
-export { AppContext, AppProvider };
+export default ContextProvider;

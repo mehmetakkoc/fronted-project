@@ -1,46 +1,30 @@
+import React, { useEffect, useState } from "react";
 import { Box, TextField, Typography, Button } from "@mui/material";
-import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { writeUserData } from "../auth/firebase";
-import { AuthContext } from "../context/AuthContext";
-import { CardContext } from "../context/Context";
-import { toastNewBlog } from "../utils/Toast";
+import { useNavigate, useParams } from "react-router-dom";
+import { getDataForUpdate, updateCard } from "../auth/firebase";
 
-const NewBlog = () => {
-  const { currentUser } = useContext(AuthContext);
-  const { addCard } = useContext(CardContext);
-  const { setAddCard } = useContext(CardContext);
+const Update = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
+  console.log(id);
+  const [update, setUpdate] = useState([]);
+
+  useEffect(() => {
+    getDataForUpdate(id, setUpdate);
+  }, []);
+  console.log(update);
 
   const handleChange = (e) => {
-    // const name = e.target.name;
-    // const value = e.target.value;
     const { name, value } = e.target;
-    setAddCard({ ...addCard, [name]: value });
+    setUpdate({ ...update, [name]: value });
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
 
-    const id = new Date().getTime();
-    const email = currentUser?.email;
-
-    const date = new Date();
-    const dates = [
-      date.getDate(),
-      " ",
-      date.toLocaleString("default", { month: "long" }),
-      " ",
-      date.getFullYear(),
-    ];
-    const writeCard = { ...addCard, id: id, email: email, date: dates };
-    console.log(email, id);
-    // setAddCard({ ...addCard, id: id, email: email, date: dates });
-    writeUserData(id, writeCard);
-    toastNewBlog("New Blog successfully added.");
+  const handleSubmit = () => {
+    const { id, title, image, text, email, date } = update;
+    console.log(id);
+    updateCard(id, title, image, text, email, date);
     navigate("/");
-    setAddCard({});
   };
-
   return (
     <Box
       className="banner"
@@ -54,8 +38,7 @@ const NewBlog = () => {
       <Box
         component="form"
         onSubmit={handleSubmit}
-        maxWidth="600px"
-        minWidth="300px"
+        width="400px"
         sx={{
           p: 2,
           bgcolor: "white",
@@ -90,7 +73,7 @@ const NewBlog = () => {
           component="h1"
           sx={{ mt: 1, color: "#056582", fontWeight: "bold" }}
         >
-          ── New Blog ──
+          ── Update Blog ──
         </Typography>
 
         <Box
@@ -114,7 +97,7 @@ const NewBlog = () => {
             }}
             name="title"
             onChange={handleChange}
-            value={addCard.title}
+            value={update.title}
           />
           <TextField
             id="outlined-basic"
@@ -128,7 +111,7 @@ const NewBlog = () => {
             }}
             name="image"
             onChange={handleChange}
-            value={addCard.image}
+            value={update.image}
           />
           <TextField
             id="outlined-multiline-static"
@@ -143,23 +126,23 @@ const NewBlog = () => {
             }}
             name="text"
             onChange={handleChange}
-            value={addCard.text}
+            value={update.text}
           />
           <Button
             type="submit"
             variant="contained"
-            required
             fullWidth
             sx={{
               bgcolor: "#056582",
               fontWeight: "bold",
             }}
           >
-            Add New Blog
+            SUBMİT
           </Button>
         </Box>
       </Box>
     </Box>
   );
 };
-export default NewBlog;
+
+export default Update;

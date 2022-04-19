@@ -9,6 +9,7 @@ const LoginForm = (props) => {
   const { values, handleChange, handleBlur, errors, touched } = props;
   const navigate = useNavigate();
   const currentUser = useContext(AuthContext);
+  console.log(values)
 
   const handleRegister = () => {
     createUser(values.email, values.password);

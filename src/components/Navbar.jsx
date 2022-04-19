@@ -39,7 +39,7 @@ export default function MenuAppBar() {
             component="div"
             sx={{ flexGrow: 1, color: "wheat", fontSize: "30px" }}
           >
-            Web Developer Blog
+            AKKOCH IT Blog
           </Typography>
           <div>
             <IconButton
@@ -91,7 +91,7 @@ export default function MenuAppBar() {
                     onClick={() => {
                       logOut();
                       handleClose();
-                      navigate("/");
+                      navigate("/login");
                     }}
                   >
                     Logout

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { createUser, signUpWithGoogle } from "../auth/firebase";
 import { AuthContext } from "../context/AuthContext";
 
+
 const LoginForm = (props) => {
   const { values, handleChange, handleBlur, errors, touched } = props;
   const navigate = useNavigate();
@@ -14,13 +15,14 @@ const LoginForm = (props) => {
   const handleRegister = () => {
     createUser(values.email, values.password);
     navigate("/login");
-    console.log(values.email, values.password);
+    
   };
+  console.log(values.email, values.password);
 
   const handleGoogleSingIn = () => {
     signUpWithGoogle();
     currentUser ? navigate("/") : alert("Login is Failed");
-    // console.log(currentUser);
+    console.log(currentUser);
   };
 
   return (

@@ -1,21 +1,23 @@
 import { Box, Typography } from "@mui/material";
 import LoginForm from "../components/LoginForm";
+import { Formik } from "formik";
+import { LoginValidationSchema } from "../components/LoginValidationSchema";
 
 const Login = () => {
   return (
     <Box
+      className="banner "
       sx={{
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        width: "100%",
-        height: "100vh",
+        container: "fluid",
       }}
     >
       <Box
         maxWidth="400px"
         sx={{
-          mt: 2,
+          m: 2,
           p: 2,
           bgcolor: "white",
           display: "flex",
@@ -52,7 +54,22 @@ const Login = () => {
           Login
         </Typography>
 
-        <LoginForm />
+        <Formik
+          initialValues={{
+            email: "",
+            password: "",
+          }}
+          validationSchema={LoginValidationSchema}
+          onSubmit={(values, actions) => {
+            alert(`
+             email: ${values.email}
+             password: ${values.password}
+            `);
+            actions.resetForm();
+            actions.setSubmitting(false);
+          }}
+          component={(props) => <LoginForm {...props} />}
+        ></Formik>
       </Box>
     </Box>
   );

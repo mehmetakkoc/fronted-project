@@ -1,47 +1,38 @@
 import React from "react";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
-// import { useGlobalContext } from "../context/Context";
+import { Box } from "@mui/material";
+import { useFetch } from "../auth/firebase";
+import BlogForm from "../components/BlogForm";
 
 const Home = () => {
-  // const { list } = useGlobalContext();
-  // console.log(list);
+  const { cards, isLoading } = useFetch();
+  // const navigate = useNavigate();
+  // const { currentUser } = useContext(AuthContext);
 
   return (
-    <Card
+    <Box
       sx={{
-        // maxWidth: 345,
-        marginTop: 3,
+        width: "100%",
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        alignItems: "center",
         
       }}
     >
-      <CardActionArea
-        sx={{ display: "flex", alignItems: "center", justifyContent: "center",gap:1 }}
-      >
-        {/* {list.map((item, id) => ( */}
-          <>
-            <CardMedia
-              // key={item.id}
-              component="img"
-              height="140"
-              // image={item.img}
-              alt="green iguana"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                {/* {item.name} */}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {/* {item.text} */}
-              </Typography>
-            </CardContent>{" "}
-          </>
-        {/* ))} */}
-      </CardActionArea>
-    </Card>
+      {isLoading ? (
+        "Loading"
+      ) : cards?.length === 0 ? (
+        <Box
+          width="45%"
+          component="img"
+          src={
+            "https://upload.wikimedia.org/wikipedia/commons/5/58/Kangal_dog_with_spikey_collar%2C_Turkey.jpg"
+          }
+        ></Box>
+      ) : (
+        cards?.map((card, index) => <BlogForm card={card} key={index} />)
+      )}
+    </Box>
   );
 };
 

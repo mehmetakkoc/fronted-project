@@ -73,7 +73,6 @@ export const signUpWithGoogle = () => {
 export const logOut = () => {
   signOut(auth);
   toastLogout("Logout completed.");
-  
 };
 
 //! Creating New User (Register)
@@ -102,7 +101,6 @@ export const writeUserData = (userId, addCard) => {
   set(ref(db, "blog/" + userId), addCard);
 };
 
-
 //! ******* READ DATA *******
 export const useFetch = () => {
   const [cards, setCards] = useState();
@@ -111,7 +109,7 @@ export const useFetch = () => {
     setIsLoading(true);
 
     const db = getDatabase();
-    const userRef = ref(db, "cards");
+    const userRef = ref(db, "blog");
 
     onValue(query(userRef), (snapshot) => {
       const cards = snapshot.val();
@@ -135,7 +133,7 @@ export const useFetch = () => {
 export const deleteCard = (id) => {
   const db = getDatabase();
   // const userRef = ref(db, 'contact');
-  remove(ref(db, "cards/" + id));
+  remove(ref(db, "blog/" + id));
   successNote("Deleted");
 };
 
@@ -144,7 +142,7 @@ export const deleteCard = (id) => {
 
 export const getDataForUpdate = (id, setUpdate) => {
   const dbRef = ref(getDatabase());
-  get(child(dbRef, `cards/${id}`))
+  get(child(dbRef, `blog/${id}`))
     .then((snapshot) => {
       if (snapshot.exists()) {
         setUpdate(snapshot.val());
@@ -170,7 +168,7 @@ export const updateCard = (id, title, image, text, email, date) => {
   };
   // const newPostKey = push(child(ref(db), "blogs")).key;
   const updates = {};
-  updates["cards/" + id] = postData;
+  updates["blog/" + id] = postData;
   // updates["/user-blogs/" + id + "/" + newPostKey] = postData;
 
   return update(ref(db), updates);

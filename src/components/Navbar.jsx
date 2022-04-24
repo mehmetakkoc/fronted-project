@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { logOut } from "../auth/firebase";
 
-export default function MenuAppBar() {
+const Navbar = () => {
   const navigate = useNavigate();
   const { currentUser } = React.useContext(AuthContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -123,4 +123,6 @@ export default function MenuAppBar() {
       </AppBar>
     </Box>
   );
-}
+};
+
+export default Navbar;

@@ -27,7 +27,6 @@ const Details = () => {
 
   return (
     <Box
-      className="banner"
       sx={{
         display: "flex",
         alignItems: "center",
@@ -85,7 +84,7 @@ const Details = () => {
         <Box>
           <Button
             variant="contained"
-            sx={{ marginRight: "6rem", bgcolor: "#3D3D3D", fontWeight: "bold" }}
+            sx={{ marginRight: "4rem", bgcolor: "#5e4747", fontWeight: "bold" }}
             onClick={() => {
               navigate(`/update/${id}`);
             }}
@@ -99,7 +98,6 @@ const Details = () => {
               color: "#fff",
               fontWeight: "bold",
             }}
-            className="delete"
             onClick={() => {
               deleteCard(id);
               navigate("/");

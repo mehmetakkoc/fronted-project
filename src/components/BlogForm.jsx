@@ -31,7 +31,6 @@ const BlogForm = ({ card }) => {
 
   return (
     <Card
-      className="cardcont"
       sx={{
         width: 300,
         m: 3,
@@ -42,21 +41,17 @@ const BlogForm = ({ card }) => {
         onClick={() => {
           cardOnClick();
         }}
-        // onClick={() => {
-        //   currentUser && navigate("/details", { state: card });
-        // }}
-        className="cardbox"
       >
-        <CardMedia component="img" height="140" image={image} alt={title} />
+        <CardMedia component="img" height="310" image={image} alt={title} />
         <CardHeader
-          sx={{ bgcolor: "#e7e6f5" }}
+          sx={{ bgcolor: "#f2f5e6" }}
           title={title}
           subheader={date}
         />
         <CardContent
-          sx={{ bgcolor: "#e7e6f5", overflow: "hidden", height: "3.6rem" }}
+          sx={{ bgcolor: "#f2f5e6", overflow: "hidden", height: "3.6rem" }}
         >
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body4" color="text.secondary">
             {text}
           </Typography>
         </CardContent>

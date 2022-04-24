@@ -65,7 +65,7 @@ const LoginForm = (props) => {
             variant="contained"
             onClick={handleRegister}
             fullWidth
-            sx={{ bgcolor: "#056582", fontWeight: "bold", boxShadow: "" }}
+            sx={{ bgcolor: "#197591", fontWeight: "bold", boxShadow: "" }}
           >
             REGISTER
           </Button>
@@ -75,7 +75,7 @@ const LoginForm = (props) => {
             type="submit"
             variant="contained"
             fullWidth
-            sx={{ bgcolor: "#056582", fontWeight: "bold" }}
+            sx={{ bgcolor: "#f31d1d", fontWeight: "bold" }}
             onClick={handleGoogleSingIn}
           >
             CONTINUE WITH GOOGLE

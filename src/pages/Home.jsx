@@ -5,8 +5,7 @@ import BlogForm from "../components/BlogForm";
 
 const Home = () => {
   const { cards, isLoading } = useFetch();
-  // const navigate = useNavigate();
-  // const { currentUser } = useContext(AuthContext);
+
 
   return (
     <Box

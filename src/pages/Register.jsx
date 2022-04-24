@@ -7,7 +7,7 @@ import { LoginValidationSchema } from "../components/LoginValidationSchema";
 const Register = () => {
   return (
     <Box
-      className="banner "
+     
       sx={{
         display: "flex",
         alignItems: "center",

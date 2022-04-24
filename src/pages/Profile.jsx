@@ -8,7 +8,7 @@ const Profile = () => {
   console.log(currentUser);
   return (
     <Box
-      className="banner"
+    
       sx={{
         display: "flex",
         justifyContent: "center",
@@ -27,8 +27,8 @@ const Profile = () => {
           height: "fit-content",
           margin: "5rem",
           p: 3,
-          bgcolor: "#e7e6f5",
-          boxShadow: "10px 10px 5px 0px #000000a9",
+          bgcolor: "#615f77",
+          boxShadow: "10px 10px 5px 5px #a07676a9",
         }}
       >
         <Avatar

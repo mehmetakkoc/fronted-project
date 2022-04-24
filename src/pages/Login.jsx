@@ -6,7 +6,6 @@ import { LoginValidationSchema } from "../components/LoginValidationSchema";
 const Login = () => {
   return (
     <Box
-      className="banner "
       sx={{
         display: "flex",
         alignItems: "center",
@@ -24,16 +23,16 @@ const Login = () => {
           flexDirection: "column",
           alignItems: "center",
           height: "fit-content",
-          boxShadow: "10px 10px 5px 0px #000000a9",
-          borderRadius: "30px",
+          boxShadow: "10px 10px 5px 5px #333131a9",
+          borderRadius: "16px",
         }}
       >
         <Box
           width="200px"
           height="200px"
           sx={{
-            borderRadius: "50%",
-            bgcolor: "#056582",
+            borderRadius: "16px",
+            bgcolor: "#816838",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",

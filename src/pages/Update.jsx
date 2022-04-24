@@ -27,7 +27,7 @@ const Update = () => {
   };
   return (
     <Box
-      className="banner"
+  
       sx={{
         display: "flex",
         alignItems: "center",
@@ -133,7 +133,7 @@ const Update = () => {
             variant="contained"
             fullWidth
             sx={{
-              bgcolor: "#056582",
+              bgcolor: "#ac217e",
               fontWeight: "bold",
             }}
           >

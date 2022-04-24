@@ -13,8 +13,6 @@ const NewBlog = () => {
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    // const name = e.target.name;
-    // const value = e.target.value;
     const { name, value } = e.target;
     setAddCard({ ...addCard, [name]: value });
   };
@@ -34,7 +32,6 @@ const NewBlog = () => {
     ];
     const writeCard = { ...addCard, id: id, email: email, date: dates };
     console.log(email, id);
-    // setAddCard({ ...addCard, id: id, email: email, date: dates });
     writeUserData(id, writeCard);
     toastNewBlog("New Blog successfully added.");
     navigate("/");
@@ -43,7 +40,6 @@ const NewBlog = () => {
 
   return (
     <Box
-      className="banner"
       sx={{
         display: "flex",
         alignItems: "center",

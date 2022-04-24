@@ -7,7 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import HomeSharpIcon from "@mui/icons-material/HomeSharp";
+import BalanceIcon from "@mui/icons-material/Balance";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { logOut } from "../auth/firebase";
@@ -29,17 +29,17 @@ const Navbar = () => {
 
   return (
     <Box sx={{ flexGrow: 1, m: 0 }}>
-      <AppBar position="static" sx={{ bgcolor: "#056582", color: "wheat" }}>
+      <AppBar position="static" sx={{ bgcolor: "#eb1111", color: "wheat" }}>
         <Toolbar>
           <IconButton size="large" color="inherit" onClick={handleHomeClick}>
-            <HomeSharpIcon />
+            <BalanceIcon />
           </IconButton>
           <Typography
             variant="h6"
             component="div"
             sx={{ flexGrow: 1, color: "wheat", fontSize: "30px" }}
           >
-            AKKOCH IT Blog
+            AKKOCHES <span sx={{ color: "red", fontSize: "30px" }}> IT </span> Blog
           </Typography>
           <div>
             <IconButton
